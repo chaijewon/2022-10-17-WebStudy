@@ -1,11 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*,com.sist.dao2.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%--
+       prefix="c" ==> 제어문 
+       <c:~
+       prefix="core"
+       <core:~
+ --%>
+<%
+    // 화면 ==> 오라클에서 데이터 읽기 
+    // 화면 출력 전에 ==> 출력할 데이터를 가지고 온다 
+    // Java => JSP
+    FoodDAO dao=new FoodDAO();
+    ArrayList<CategoryVO> list=dao.categoryData();
+    request.setAttribute("list", list);
+%>
 <!DOCTYPE html>
-
 <html>
 <head>
-<title>Gravity | Pages | Gallery</title>
+<title>Gravity</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
 <!-- ################################################################################################ --> 
@@ -15,7 +31,7 @@
   <header id="header" class="clear"> 
     <!-- ################################################################################################ -->
     <div id="logo" class="fl_left">
-      <h1><a href="../index.html">Gravity</a></h1>
+      <h1><a href="index.html">맛집 & 레시피 & 서울여행</a></h1>
     </div>
     <div class="fl_right">
       <ul class="inline">
@@ -33,14 +49,14 @@
   <nav id="mainav" class="clear"> 
     <!-- ################################################################################################ -->
     <ul class="clear">
-      <li><a href="../index.html">Home</a></li>
-      <li class="active"><a class="drop" href="#">Pages</a>
+      <li class="active"><a href="index.html">Home</a></li>
+      <li><a class="drop" href="#">Pages</a>
         <ul>
-          <li class="active"><a href="gallery.html">Gallery</a></li>
-          <li><a href="full-width.html">Full Width</a></li>
-          <li><a href="sidebar-left.html">Sidebar Left</a></li>
-          <li><a href="sidebar-right.html">Sidebar Right</a></li>
-          <li><a href="basic-grid.html">Basic Grid</a></li>
+          <li><a href="pages/gallery.html">Gallery</a></li>
+          <li><a href="pages/full-width.html">Full Width</a></li>
+          <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
+          <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
+          <li><a href="pages/basic-grid.html">Basic Grid</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">Dropdown</a>
@@ -64,14 +80,15 @@
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
-  <div id="breadcrumb" class="clear"> 
+  <div id="slider" class="clear"> 
     <!-- ################################################################################################ -->
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Lorem</a></li>
-      <li><a href="#">Ipsum</a></li>
-      <li><a href="#">Dolor</a></li>
-    </ul>
+    <div class="flexslider basicslider">
+      <ul class="slides">
+        <li><a href="#"><img class="radius-10" src="images/demo/slides/back1.jpg" style="width:978px;height:400px"></a></li>
+        <li><a href="#"><img class="radius-10" src="images/demo/slides/back2.jpg" style="width:978px;height:400px"></a></li>
+        <li><a href="#"><img class="radius-10" src="images/demo/slides/back3.jpg" style="width:978px;height:400px"></a></li>
+      </ul>
+    </div>
     <!-- ################################################################################################ --> 
   </div>
 </div>
@@ -82,48 +99,114 @@
   <main class="container clear"> 
     <!-- main body --> 
     <!-- ################################################################################################ -->
-    <div class="content"> 
-      <!-- ################################################################################################ -->
-      <div id="gallery">
-        <figure>
-          <header class="heading">Gallery Title Goes Here</header>
-          <ul class="nospace clear">
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-          </ul>
-          <figcaption>Gallery Description Goes Here</figcaption>
-        </figure>
-      </div>
-      <!-- ################################################################################################ --> 
-      <!-- ################################################################################################ -->
-      <nav class="pagination">
-        <ul>
-          <li><a href="#">&laquo; Previous</a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><strong>&hellip;</strong></li>
-          <li><a href="#">6</a></li>
-          <li class="current"><strong>7</strong></li>
-          <li><a href="#">8</a></li>
-          <li><a href="#">9</a></li>
-          <li><strong>&hellip;</strong></li>
-          <li><a href="#">14</a></li>
-          <li><a href="#">15</a></li>
-          <li><a href="#">Next &raquo;</a></li>
-        </ul>
-      </nav>
-      <!-- ################################################################################################ --> 
+    <ul class="nospace group btmspace-80">
+      <li class="one_third first">
+        <article class="service"><i class="icon fa fa-ambulance"></i>
+          <h6 class="heading"><a href="#">오늘의 뉴스</a></h6>
+          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+      <li class="one_third">
+        <article class="service"><i class="icon fa fa-h-square"></i>
+          <h6 class="heading"><a href="#">오늘의 날씨</a></h6>
+          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+      <li class="one_third">
+        <article class="service"><i class="icon fa fa-hospital-o"></i>
+          <h6 class="heading"><a href="#">이벤트</a></h6>
+          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+    </ul>
+    <!-- ################################################################################################ -->
+    <h2 class="sectiontitle">믿고 보는 맛집 리스트</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+       <%-- <%
+            for(int i=0;i<12;i++)
+            {
+                  CategoryVO vo=list.get(i);
+                  
+                  for(CategoryVO vo:list)
+       %> --%>
+          <c:forEach var="vo" items="${list }" varStatus="s">
+              <c:if test="${s.index>=0 && s.index<12 }">
+                <li>
+		          <figure><img class="radius-10 btmspace-10" src="${vo.poster}" title="${vo.subject }"
+		                  style="width:320px;height: 185px">
+		            <figcaption><a href="#">${vo.title }</a></figcaption>
+		          </figure>
+		        </li>
+		      </c:if>
+          </c:forEach>
+		       
+       <%--  <%
+            }
+        %> --%>
+      </ul>
     </div>
+    <h2 class="sectiontitle">지역별 인기 맛집</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <%
+            for(int i=12;i<18;i++)
+            {
+                  CategoryVO vo=list.get(i);
+       %>
+		        <li>
+		          <figure><img class="radius-10 btmspace-10" src="<%=vo.getPoster() %>" title="<%=vo.getSubject()%>"
+		                  style="width:320px;height: 185px">
+		            <figcaption><a href="#"><%=vo.getTitle() %></a></figcaption>
+		          </figure>
+		        </li>
+        <%
+            }
+        %>
+      </ul>
+    </div>
+    <h2 class="sectiontitle">메뉴별 인기 맛집</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <%
+            for(int i=18;i<30;i++)
+            {
+                  CategoryVO vo=list.get(i);
+       %>
+		        <li>
+		          <figure><img class="radius-10 btmspace-10" src="<%=vo.getPoster() %>" title="<%=vo.getSubject()%>"
+		                  style="width:320px;height: 185px">
+		            <figcaption><a href="#"><%=vo.getTitle() %></a></figcaption>
+		          </figure>
+		        </li>
+        <%
+            }
+        %>
+      </ul>
+    </div>
+    <!-- ################################################################################################ -->
+    <h2 class="sectiontitle">최근 방문 맛집(Cookie)</h2>
+    <!-- ################################################################################################ -->
+    <ul class="nospace group">
+      <li class="one_half first">
+        <article><img class="imgl radius-10" src="images/demo/100x100.gif" alt="">
+          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
+          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+        </article>
+      </li>
+      <li class="one_half">
+        <article><img class="imgl radius-10" src="images/demo/100x100.gif" alt="">
+          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
+          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+        </article>
+      </li>
+    </ul>
     <!-- ################################################################################################ --> 
     <!-- / main body -->
     <div class="clear"></div>
@@ -203,8 +286,9 @@
 <!-- ################################################################################################ --> 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a> 
 <!-- JAVASCRIPTS --> 
-<script src="../layout/scripts/jquery.min.js"></script> 
-<script src="../layout/scripts/jquery.backtotop.js"></script> 
-<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+<script src="layout/scripts/jquery.min.js"></script> 
+<script src="layout/scripts/jquery.backtotop.js"></script> 
+<script src="layout/scripts/jquery.mobilemenu.js"></script> 
+<script src="layout/scripts/jquery.flexslider-min.js"></script>
 </body>
 </html>

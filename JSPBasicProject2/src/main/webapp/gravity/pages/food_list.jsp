@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.sist.dao2.*,java.util.*"%>
+<%
+      FoodDAO dao=new FoodDAO();
+      ArrayList<FoodVO> list=dao.foodListData();
+%>
 <!DOCTYPE html>
 
 <html>
@@ -88,18 +94,16 @@
         <figure>
           <header class="heading">Gallery Title Goes Here</header>
           <ul class="nospace clear">
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/gallery/gallery.gif" alt=""></a></li>
+           <%
+              for(int i=0;i<list.size();i++)
+              {
+            	  FoodVO vo=list.get(i);
+           %>
+            <li class="one_quarter <%= i%4==0?"first":""%>"><a href="#"><img src="<%=vo.getPoster() %>" 
+               title="<%=vo.getName()%>"></a></li>
+           <%
+              }
+           %>
           </ul>
           <figcaption>Gallery Description Goes Here</figcaption>
         </figure>

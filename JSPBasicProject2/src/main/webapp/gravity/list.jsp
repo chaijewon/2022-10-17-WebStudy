@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.sist.dao2.*,java.util.*"%>
+<%
+    // 화면 ==> 오라클에서 데이터 읽기 
+    // 화면 출력 전에 ==> 출력할 데이터를 가지고 온다 
+    // Java => JSP
+    FoodDAO dao=new FoodDAO();
+    ArrayList<CategoryVO> list=dao.categoryData();
+%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <title>Gravity</title>
@@ -113,37 +119,64 @@
     <!-- ################################################################################################ -->
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+       <%
+            for(int i=0;i<12;i++)
+            {
+                  CategoryVO vo=list.get(i);
+       %>
+		        <li>
+		          <figure><img class="radius-10 btmspace-10" src="<%=vo.getPoster() %>" title="<%=vo.getSubject()%>"
+		                  style="width:320px;height: 185px">
+		            <figcaption><a href="#"><%=vo.getTitle() %></a></figcaption>
+		          </figure>
+		        </li>
+        <%
+            }
+        %>
       </ul>
     </div>
     <h2 class="sectiontitle">지역별 인기 맛집</h2>
     <!-- ################################################################################################ -->
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+        <%
+            for(int i=12;i<18;i++)
+            {
+                  CategoryVO vo=list.get(i);
+       %>
+		        <li>
+		          <figure><img class="radius-10 btmspace-10" src="<%=vo.getPoster() %>" title="<%=vo.getSubject()%>"
+		                  style="width:320px;height: 185px">
+		            <figcaption><a href="#"><%=vo.getTitle() %></a></figcaption>
+		          </figure>
+		        </li>
+        <%
+            }
+        %>
       </ul>
     </div>
     <h2 class="sectiontitle">메뉴별 인기 맛집</h2>
     <!-- ################################################################################################ -->
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+        <%
+            for(int i=18;i<30;i++)
+            {
+                  CategoryVO vo=list.get(i);
+       %>
+		        <li>
+		          <figure><img class="radius-10 btmspace-10" src="<%=vo.getPoster() %>" title="<%=vo.getSubject()%>"
+		                  style="width:320px;height: 185px">
+		            <figcaption><a href="#"><%=vo.getTitle() %></a></figcaption>
+		          </figure>
+		        </li>
+        <%
+            }
+        %>
       </ul>
     </div>
     <!-- ################################################################################################ -->
-    <h2 class="sectiontitle">Lorem Ipsum Dolor</h2>
+    <h2 class="sectiontitle">최근 방문 맛집(Cookie)</h2>
     <!-- ################################################################################################ -->
     <ul class="nospace group">
       <li class="one_half first">
