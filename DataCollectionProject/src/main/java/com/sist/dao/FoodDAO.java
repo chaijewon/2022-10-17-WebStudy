@@ -5,6 +5,10 @@ public class FoodDAO {
    private Connection conn;
    private PreparedStatement ps;
    private String URL="jdbc:oracle:thin:@localhost:1521:XE";
+   public static void main(String[] args) {
+	  FoodDAO dao=new FoodDAO();
+	  dao.empData();
+   }
    public FoodDAO()
    {
 	   try
@@ -26,6 +30,28 @@ public class FoodDAO {
 		   if(ps!=null) ps.close();
 		   if(conn!=null) conn.close();
 	   }catch(Exception ex) {}
+   }
+   public void empData()
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT ename FROM emp";
+		   ps=conn.prepareStatement(sql);
+		   ResultSet rs=ps.executeQuery();
+		   while(rs.next())
+		   {
+			   System.out.println(rs.getString(1));
+		   }
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
    }
    // 맛집 카테고리 추가 ==> JPA ==> save(vo)
    public void foodCategoryInsert(CategoryVO vo) // 30
@@ -74,6 +100,7 @@ public class FoodDAO {
 			   vo.setTitle(rs.getString(2));
 			   vo.setLink("https://www.mangoplate.com"+rs.getString(3));
 			   list.add(vo);
+			   System.out.println();
 		   }
 		   rs.close();
 	   }catch(Exception ex)
