@@ -90,7 +90,7 @@
      
      // 쿠키 처리 
      //1. 쿠키 읽기
-     /* Cookie[] cookies=request.getCookies();
+      Cookie[] cookies=request.getCookies();
      ArrayList<FoodVO> cList=new ArrayList<FoodVO>();
      FoodDAO dao=new FoodDAO();
      if(cookies!=null)//cookie가 존재한다면 
@@ -111,13 +111,14 @@
     			 cList.add(vo);
     		 }
     	 }
-     } */
+     } 
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9965c727d3306713c47391be682e4be9&libraries=services"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style type="text/css">
 .main{
@@ -131,7 +132,7 @@ h1{
    text-align: center
 }
 </style>
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.radios').click(function(){
@@ -142,7 +143,7 @@ $(function(){
 	})
 })
 </script>
-</head> -->
+</head>
 <body>
   <%
      pageContext.include("header.jsp"); // <jsp:include page="header.jsp">
@@ -162,27 +163,28 @@ $(function(){
       <hr>
       
       <form method=post action="../food/cookie_one_delete.jsp" id="cookie_frm">
-      <button class="btn btn-sm btn-danger">삭제</button>
-     <%-- <%
+      
+      <%
+        int k=0;
        if(cList.size()>0 && cList!=null)
        {
-         for(int i=0;i<=cList.size();i++)
+         for(FoodVO vo:cList)
          {
-        	 if(i<5)
+        	 if(k<5)
         	 {
-        	  FoodVO vo=cList.get(i);
       %>
              
-              <input type="radio" name="cookie" value="<%=vo.getFno()%>" class="radios">
-              <img src="<%=vo.getPoster() %>" title="<%=vo.getName() %>" style="width:150px;height:150px">
+              <input type="radio" name="cookie" value="<%=vo.getFno()%>" class="radios"> 
+              <img src="<%=vo.getPoster() %>" title="<%=vo.getName() %>" style="width:100px;height:100px">
              
              
       <%
         	}
+        	 k++;
         }
        }
       %>
-      --%>
+      <button class="btn btn-sm btn-danger">삭제</button>
       </form>  
     </div>
   </div>

@@ -94,7 +94,7 @@
    </table>
    <div style="height: 10px"></div>
    <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <table class="table">
        <tr>
         <td colspan="2">
@@ -102,38 +102,38 @@
         </td>
        </tr>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">주소</span></th>
-         <td width="85%"><%=addr1 %>
+         <th class="text-right"  width=20%><span style="color:gray">주소</span></th>
+         <td width="80%"><%=addr1 %>
            <br><sub style="color:gray">지번:<%=addr2 %></sub>
          </td>
        </tr>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">전화</span></th>
-         <td width="85%"><%=vo.getTel() %></td>
+         <th class="text-right"  width=20%><span style="color:gray">전화</span></th>
+         <td width="80%"><%=vo.getTel() %></td>
        </tr>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">음식종류</span></th>
-         <td width="85%"><%=vo.getType() %></td>
+         <th class="text-right"  width=20%><span style="color:gray">음식종류</span></th>
+         <td width="80%"><%=vo.getType() %></td>
        </tr>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">가격대</span></th>
-         <td width="85%"><%=vo.getPrice() %></td>
+         <th class="text-right"  width=20%><span style="color:gray">가격대</span></th>
+         <td width="80%"><%=vo.getPrice() %></td>
        </tr>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">영업시간</span></th>
-         <td width="85%"><%=vo.getTime() %></td>
+         <th class="text-right"  width=20%><span style="color:gray">영업시간</span></th>
+         <td width="80%"><%=vo.getTime() %></td>
        </tr>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">주차</span></th>
-         <td width="85%"><%=vo.getParking() %></td>
+         <th class="text-right"  width=20%><span style="color:gray">주차</span></th>
+         <td width="80%"><%=vo.getParking() %></td>
        </tr>
        <%
           if(!vo.getMenu().equals("no"))
           {
        %>
        <tr>
-         <th class="text-right"  width=15%><span style="color:gray">메뉴</span></th>
-         <td width="85%">
+         <th class="text-right"  width=20%><span style="color:gray">메뉴</span></th>
+         <td width="80%">
            <ul>
              <%
                 st=new StringTokenizer(vo.getMenu(),"원");
@@ -214,7 +214,7 @@
 						             <%-- 수정에 필요한 변수 --%>
 						             <input type=hidden name=fno value="<%= vo.getFno()%>">
 						             <%--화면으로 다시 이동 (맛집 상세보기) --%>
-						             <textarea rows="4" cols="50" name="msg" style="float: left"><%=rvo.getMsg() %></textarea>
+						             <textarea rows="4" cols="40" name="msg" style="float: left"><%=rvo.getMsg() %></textarea>
 						             <input type="submit" value="댓글수정" class="btn btn-sm btn-danger" style="float: left;height: 88px">
 						            </form>
 						          </td>
@@ -240,7 +240,7 @@
           <td>
             <form method=post action="../reply/reply_insert.jsp">
              <input type=hidden name=fno value="<%= vo.getFno()%>">
-             <textarea rows="4" cols="55" name="msg" style="float: left"></textarea>
+             <textarea rows="4" cols="45" name="msg" style="float: left"></textarea>
              <input type="submit" value="댓글쓰기" class="btn btn-sm btn-danger" style="float: left;height: 88px">
             </form>
           </td>
@@ -250,7 +250,7 @@
            }
       %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-5">
       <div id="map" style="width:100%;height:350px;"></div>
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9965c727d3306713c47391be682e4be9&libraries=services"></script>
 		<script>
