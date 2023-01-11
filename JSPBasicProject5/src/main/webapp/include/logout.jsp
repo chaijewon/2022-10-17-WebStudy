@@ -12,7 +12,7 @@
     <tr>
       <td width=30% class="text-right"></td>
       <td width=70%>
-       <%= session.getAttribute("name") %> 님 로그인되었습니다
+       <span style="font-size: 9px"><%= session.getAttribute("name") %> 님 로그인되었습니다</span>
       </td>
     </tr>
     <tr>

@@ -12,7 +12,7 @@ public class FoodDAO {
 	   private PreparedStatement ps;
 	   // 오라클 연결 주소 
 	   private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
-	   
+	   private static FoodDAO dao;
 	   // 드라이버 연결 
 	   public FoodDAO()
 	   {
@@ -37,6 +37,14 @@ public class FoodDAO {
 			   if(ps!=null) ps.close();
 			   if(conn!=null) conn.close();
 		   }catch(Exception ex) {}
+	   }
+	   
+	   public static FoodDAO newInstance()
+	   {
+		   if(dao==null)
+			   dao=new FoodDAO();
+		   
+		   return dao;
 	   }
 	   public ArrayList<CategoryVO> categoryListData(int no)
 	   {
