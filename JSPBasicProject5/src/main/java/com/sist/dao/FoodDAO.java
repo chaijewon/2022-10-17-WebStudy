@@ -5,6 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
+/*
+ *   while(rs.next())
+ *   {
+ *      String a=rs.getString(1)
+ *      String b=rs.getString(2)
+ *      String c=rs.getString(3)
+ *      String d=rs.getString(4)
+ *      
+ *      list.add(a)
+ *   }
+ */
 public class FoodDAO {
 	 // 오라클 연결 객체 
 	   private Connection conn;
