@@ -5,7 +5,10 @@ public class JspChange {
 		  "../main/home.jsp",
 		  "../seoul/location.jsp",
 		  "../seoul/nature.jsp",
-		  "../seoul/shop.jsp"
+		  "../seoul/shop.jsp",
+		  "../food/food_find.jsp",
+		  "../databoard/list.jsp",
+		  "../food/food_detail.jsp"
   };
   public static String change(int no)
   {

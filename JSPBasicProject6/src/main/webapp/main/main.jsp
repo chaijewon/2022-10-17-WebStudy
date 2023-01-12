@@ -93,6 +93,7 @@
 --%>
 <%
    // 화면 변경에 대한 요청값을 받는다 
+   request.setCharacterEncoding("UTF-8");
    String mode=request.getParameter("mode");
    // 처음에 한번은 default지정 
    if(mode==null)
@@ -104,6 +105,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9965c727d3306713c47391be682e4be9&libraries=services"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
