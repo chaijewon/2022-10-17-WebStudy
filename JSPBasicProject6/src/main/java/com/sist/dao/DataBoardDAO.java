@@ -199,7 +199,7 @@ public class DataBoardDAO {
     		ps.setString(3, vo.getContent());
     		ps.setString(4, vo.getPwd());
     		ps.setString(5, vo.getFilename());
-    		ps.setInt(5, vo.getFilesize());
+    		ps.setInt(6, vo.getFilesize());
     		ps.executeUpdate();
     	}catch(Exception ex)
     	{

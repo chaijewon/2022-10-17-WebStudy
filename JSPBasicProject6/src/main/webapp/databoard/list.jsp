@@ -61,7 +61,7 @@
 		              if(vo.getFilesize()>0)
 		              {
 		           %>
-		                  <img src="../images/file.jpg" style="width: 10px;height: 10px" class="img-circle">
+		                  <img src="../images/file.jpg" style="width: 20px;height: 20px" class="img-circle">
 		           <%
 		              }
 		           %>

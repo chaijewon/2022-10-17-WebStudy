@@ -19,7 +19,12 @@
     String subject=mr.getParameter("subject");
     String content=mr.getParameter("content");
     String pwd=mr.getParameter("pwd");
-    String filename=mr.getOriginalFileName("upload");
+    String filename=mr.getFilesystemName("upload");
+                    /*
+                        mr.getOriginalFileName("upload"); => 실제 사용자가 보내준 파일명 
+                        mr.getFilesystemName("upload") => 변경된 파일명 
+                        JSP.zip => JSP1.zip
+                    */
     DataBoardVO vo=new DataBoardVO();
     vo.setName(name);
     vo.setSubject(subject);
@@ -39,7 +44,7 @@
     
     // vo를 DAO를 통해서 오라클로 전송 
     DataBoardDAO dao=new DataBoardDAO();
-    
+    dao.databoardInsert(vo);
     // 화면 이동한다 => 목록 출력 
     response.sendRedirect("../main/main.jsp?mode=5");//mode가 include하는 jsp 구분자 
 %>
