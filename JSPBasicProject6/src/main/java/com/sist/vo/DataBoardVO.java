@@ -17,11 +17,17 @@ import java.util.*;
  *       boolean   ==> set변수명 , is변수명() ==> 존재여부 확인 
  */
 public class DataBoardVO {
-   private int no,hit,filesize;
+   private int no,hit,filesize,rownum;
    private String name,subject,content,pwd,filename,dbday;
    private Date regdate;
-   
+     
   
+	public int getRownum() {
+	return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 	public String getDbday() {
 	   return dbday;
 	}
