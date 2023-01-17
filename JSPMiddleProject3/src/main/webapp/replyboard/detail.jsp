@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.sist.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="model" class="com.sist.model.BoardModel"/>
 <%
      model.boardDetailData(request, response);
@@ -21,6 +22,37 @@
    margin: 0px auto;
 }
 </style>
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["단어", "횟수", { role: "style" } ],
+        <c:forEach var="wvo" items="${list}">
+         ["<c:out value='${wvo.word}'/>", <c:out value="${wvo.count}"/>, "#b87333"],
+        </c:forEach>
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "단어분석",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
 </head>
 <body>
    <div class="container">
@@ -63,6 +95,11 @@
         </td>
       </tr>
     </table>
+     </div>
+     <div class="row">
+       <div class="text-center">
+         <div id="columnchart_values" style="width: 800px; height: 300px;"></div>
+       </div>
      </div>
   </div>
 </body>

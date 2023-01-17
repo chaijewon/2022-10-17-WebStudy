@@ -19,8 +19,9 @@
 </style>
 </head>
 <body>
+<div class="container">
    <div class="row">
-       <img src="qna.jpg" style="width: 800px;height: 150px;" class="img-rounded">
+       <img src="qna.jpg" style="width: 300px;height: 100px;" class="img-rounded">
      </div>
      <div style="height: 5px"></div>
    <div class="row row1">
@@ -43,6 +44,7 @@
        </tr>
      </table>
      </form>
+   </div>
    </div>
 </body>
 </html>
