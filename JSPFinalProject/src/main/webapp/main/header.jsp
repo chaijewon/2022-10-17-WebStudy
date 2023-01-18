@@ -11,7 +11,7 @@
 <div class="wrapper row1">
   <header id="header" class="clear">
     <div id="logo" class="fl_left">
-      <h1><a href="index.html">서울 맛집 & 서울 여행</a></h1>
+      <h1><a href="../main/main.do">서울 맛집 & 서울 여행</a></h1>
     </div>
     <div class="fl_right">
       <ul class="inline">
@@ -25,7 +25,7 @@
 <div class="wrapper row2">
   <nav id="mainav" class="clear"> 
     <ul class="clear">
-      <li class="active"><a href="index.html">Home</a></li>
+      <li class="active"><a href="../main/main.do">Home</a></li>
       <li><a class="drop" href="#">회원</a>
         <ul>
           <li><a href="pages/gallery.html">회원가입</a></li>
@@ -58,10 +58,15 @@
       </li>
       <li><a class="drop" href="#">스토어</a>
         <ul>
-          <li><a href="pages/gallery.html">전체</a></li>
-          <li><a href="pages/full-width.html">신상품</a></li>
-          <li><a href="pages/full-width.html">특가</a></li>
-          <li><a href="pages/full-width.html">베스트</a></li>
+          <li><a href="../goods/goods_all.do">전체</a></li>
+          <%--
+                 goods_all.do : DispatcherServlet => Model => 데이터를 받아서 출력한 jsp를 보여준다 
+                                .do 모델을 찾아서 데이터를 읽어 온다 
+                 goods_all.jsp : 파일 자체를 찾는다 
+           --%>
+          <li><a href="../goods/goods_new.do">신상품</a></li>
+          <li><a href="../goods/goods_sp.do">특가</a></li>
+          <li><a href="../goods/goods_best.do">베스트</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">커뮤니티</a>
