@@ -36,7 +36,7 @@ public class GoodsModel {
 	   request.setAttribute("startPage", startPage);
 	   request.setAttribute("endPage", endPage);
 	   request.setAttribute("main_jsp", "../goods/goods_all.jsp");// main.jsp에서 include되는 파일 지정 
-	   return "../main/main.jsp";
+	   return "../main/main.jsp";// cd  ==> ..
    }
    @RequestMapping("goods/goods_best.do")
    public String goodsBest(HttpServletRequest request,HttpServletResponse response)
