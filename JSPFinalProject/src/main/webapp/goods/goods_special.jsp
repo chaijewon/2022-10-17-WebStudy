@@ -32,7 +32,7 @@
       <div id="gallery">
         <figure>
           <header class="heading">
-           <h2 class="sectiontitle">베스트 상품 목록</h2>
+           <h2 class="sectiontitle">특가 상품 목록</h2>
           </header>
           <ul class="nospace clear">
            <c:forEach var="vo" items="${list }" varStatus="s">
@@ -48,13 +48,13 @@
       <nav class="pagination">
         <ul>
          <c:if test="${startPage>1 }">
-          <li><a href="../goods/goods_best.do?page=${startPage-1 }">&laquo; Previous</a></li>
+          <li><a href="../goods/goods_special.do?page=${startPage-1 }">&laquo; Previous</a></li>
          </c:if>
           <c:forEach var="i" begin="${startPage }" end="${endPage }">
-            <li ${i==curpage?"class=current":"" }><a href="../goods/goods_best.do?page=${i }">${i }</a></li>
+            <li ${i==curpage?"class=current":"" }><a href="../goods/goods_special.do?page=${i }">${i }</a></li>
           </c:forEach>
          <c:if test="${endPage<totalpage }">
-          <li><a href="../goods/goods_best.do?page=${endPage+1 }">Next &raquo;</a></li>
+          <li><a href="../goods/goods_special.do?page=${endPage+1 }">Next &raquo;</a></li>
          </c:if>
         </ul>
       </nav>
@@ -67,11 +67,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-

@@ -15,8 +15,8 @@
     </div>
     <div class="fl_right">
       <ul class="inline">
-        <li>ID<input type=text name=id size=10 class="input-sm" placeholder="ID"></li>
-        <li>PW<input type=password name=pwd size=10 class="input-sm" placeholder="Password"></li>
+        <li>아이디<input type=text name=id size=10 class="input-sm"></li>
+        <li>비밀번호<input type=password name=pwd size=10 class="input-sm"></li>
         <li><input type=button class="btn btn-lg btn-danger" value="로그인"></li>
       </ul>
     </div>
@@ -65,7 +65,7 @@
                  goods_all.jsp : 파일 자체를 찾는다 
            --%>
           <li><a href="../goods/goods_new.do">신상품</a></li>
-          <li><a href="../goods/goods_sp.do">특가</a></li>
+          <li><a href="../goods/goods_special.do">특가</a></li>
           <li><a href="../goods/goods_best.do">베스트</a></li>
         </ul>
       </li>
