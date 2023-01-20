@@ -30,7 +30,7 @@
       <li><a class="drop" href="#">회원</a>
         <c:if test="${sessionScope.id==null }"><%-- 로그인이 안된 상태 --%>
 	        <ul>
-	          <li><a href="pages/gallery.html">회원가입</a></li>
+	          <li><a href="../member/join.do">회원가입</a></li>
 	          <li><a href="pages/full-width.html">아이디찾기</a></li>
 	          <li><a href="pages/sidebar-left.html">비밀번호찾기</a></li>
 	        </ul>
@@ -85,8 +85,9 @@
       <li><a class="drop" href="#">커뮤니티</a>
         <ul>
           <li><a href="pages/gallery.html">공지사항</a></li>
+         
+         <li><a href="../freeboard/list.do">자유게시판</a></li>
          <c:if test="${sessionScope.id!=null }">
-          <li><a href="pages/full-width.html">자유게시판</a></li>
           <li><a href="pages/sidebar-left.html">후기게시판</a></li>
          </c:if>
         </ul>
