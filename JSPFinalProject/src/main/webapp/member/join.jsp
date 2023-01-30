@@ -7,7 +7,32 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+Shadowbox.init({
+	players:['iframe']
+})
+$(function(){
+	$('#checkBtn').click(function(){
+		Shadowbox.open({
+			content:'../member/idcheck.do',
+			player:'iframe',
+			width:420,
+			height:180,
+			title:'아이디 중복체크'
+		})
+	})
+	$('#postBtn').click(function(){
+		Shadowbox.open({
+			content:'../member/postfind.do',
+			player:'iframe',
+			width:550,
+			height:450,
+			title:'우편번호 검색'
+		})
+	})
+})
+</script>
 </head>
 <body>
 <div class="wrapper row3">
