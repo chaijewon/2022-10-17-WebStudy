@@ -191,6 +191,61 @@ public class MemberDAO {
 	   }
    }
    // 2. 로그인 
+   public MemberVO memberLogin(String id,String pwd)
+   {
+	   MemberVO vo=new MemberVO();
+	   try
+	   {
+		   conn=CreateConnection.getConnection();
+		   String sql="SELECT COUNT(*) FROM project_member "
+				     +"WHERE id=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, id);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   int count=rs.getInt(1);
+		   rs.close();
+		   ///////////////////////////////////////// ID존재여부 확인 
+		   if(count==0)
+		   {
+			   vo.setMsg("NOID");
+		   }
+		   else  //ID존재 
+		   {
+			   sql="SELECT id,pwd,name,admin FROM project_member "
+				  +"WHERE id=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, id);
+			   rs=ps.executeQuery();
+			   rs.next();
+			   String db_id=rs.getString(1);
+			   String db_pwd=rs.getString(2);
+			   String db_name=rs.getString(3);
+			   String db_admin=rs.getString(4);
+			   rs.close();
+			   
+			   if(db_pwd.equals(pwd))//로그인 
+			   {
+				   vo.setMsg("OK");
+				   vo.setId(db_id);
+				   vo.setName(db_name);
+				   vo.setAdmin(db_admin);
+			   }
+			   else // 비밀번호가 틀린 상태
+			   {
+				   vo.setMsg("NOPWD");
+			   }
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   CreateConnection.disConnection(conn, ps);
+	   }
+	   return vo;
+   }
    // 3. 회원 수정 
    // 4. ID찾기 
    // 5. PWD 찾기 

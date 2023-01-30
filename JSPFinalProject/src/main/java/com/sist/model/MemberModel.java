@@ -2,6 +2,7 @@ package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -109,6 +110,35 @@ public class MemberModel {
 	  MemberDAO dao=new MemberDAO();
 	  dao.memberInsert(vo);
 	  
+	  return "redirect:../main/main.do";
+  }
+  @RequestMapping("member/login.do")
+  public String member_login(HttpServletRequest request,HttpServletResponse response)
+  {
+	  //data:{"id":id,"pwd":pwd}
+	  String id=request.getParameter("id");
+	  String pwd=request.getParameter("pwd");
+	  MemberDAO dao=new MemberDAO();
+	  // 결과값 받기 
+	  MemberVO vo=dao.memberLogin(id, pwd);
+	  if(vo.getMsg().equals("OK"))// 로그인되었다면 
+	  {
+		  //session에 저장 => 모든 jsp로 사용이 가능하게 만든다 (전역변수) => 지속적인 유지 => ID,Name,admin...
+		  //session생성 
+		  HttpSession session=request.getSession();
+		  // session,cookie => request를 이용해서 생성한다 
+		  session.setAttribute("id", vo.getId());
+		  session.setAttribute("name", vo.getName());
+		  session.setAttribute("admin", vo.getAdmin());
+	  }
+	  request.setAttribute("result", vo.getMsg()); 
+	  return "../member/login.jsp";
+  }
+  @RequestMapping("member/logout.do")
+  public String member_logout(HttpServletRequest request,HttpServletResponse response)
+  {
+	  HttpSession session=request.getSession();
+	  session.invalidate();// 모든 정보 해제 
 	  return "redirect:../main/main.do";
   }
 }
