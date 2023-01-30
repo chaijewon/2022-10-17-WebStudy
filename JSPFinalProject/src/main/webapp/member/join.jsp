@@ -26,11 +26,46 @@ $(function(){
 		Shadowbox.open({
 			content:'../member/postfind.do',
 			player:'iframe',
-			width:550,
+			width:580,
 			height:450,
 			title:'우편번호 검색'
 		})
 	})
+	// email 검색 => 후보키 (unique)
+	$('#eBtn').click(function(){
+		let email=$('#email').val();
+		if(email.trim()==="")
+		{
+			$('#email').focus();
+			return;
+		}
+		$.ajax({
+			type:'post',
+			url:'../member/email_check.do',
+			data:{"email":email},
+			success:function(result)
+			{
+				let count=Number(result.trim());
+				if(count==0)
+				{
+					$('#ePrint').text(email+"는(은) 사용 가능한 이메일입니다")
+					$('#email').prop('readonly',true)// <input readonly>
+					// prop('disabled',true) , prop('checked',true)
+				}
+				else
+				{
+					$('#ePrint').text(email+"는(은) 이미 사용중인 이메일입니다")
+					$('#email').val("")
+					$('#email').focus()
+				}
+			}
+		})
+	})
+	// 전화번호 검색
+	$('#tBtn').click(function(){
+		
+	})
+	// 회원가입 => 유효성 (NOT NULL) => 오라클 제약조건 
 })
 </script>
 </head>

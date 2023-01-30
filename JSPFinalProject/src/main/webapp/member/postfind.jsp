@@ -11,11 +11,47 @@
    margin-top: 30px;
 }
 .row{
-   width: 590px;
+   width: 550px;
    margin: 0px auto;
 }
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<!-- 
+     JAVA / ORACLE / JSP (MVC) = Spring
+              |
+            MyBatis
+     JavaScript : 변수설정 (let,const) , 연산자 , 제어문 , function
+                 --------------------------------------------- 라이브러리 (Jquery(Ajax))
+                 
+     = JSP(MVC) = Jquery(Ajax) => DBCP (SQL,웹흐름(MVC)) daum/naver
+     = --------   ------------   -----
+         |             |           |
+       Spring         VueJS       MyBatis (80%)
+         |             |           |
+       Spring-Boot    ReactJS     JPA     (20%)
+       ------------------------------------------- AWS(리눅스)
+ -->
+<script type="text/javascript">
+$(function(){
+	$('#postfindBtn').click(function(){
+		let dong=$('#dong').val();
+		if(dong.trim()==="")
+		{
+			$('#dong').focus()
+			return
+		}
+		$.ajax({
+			type:'post',
+			url:'../member/postfind_result.do', // 결과값 실행 위치 
+			data:{"dong":dong}, // 실행에 필요한 데이터 전송 
+			success:function(result) // 실행결과를 읽어 온다 
+			{
+				$('#print').html(result) // 읽어온 데이터 출력 위치 지정 
+			}
+		})
+	})
+})
+</script>
 </head>
 <body>
   <div class="container">
@@ -24,10 +60,13 @@
         <tr>
           <td class="text-center">
            입력:<input type=text name="dong" id="dong" size=20 class="input-sm">
-           <input type=button value="우편번호검색" class="btn btn-sm btn-danger">
+           <input type=button value="우편번호검색" class="btn btn-sm btn-danger" id="postfindBtn">
           </td>
         </tr>
       </table>
+      <span id="print">
+        
+      </span>
     </div>
   </div>
 </body>
