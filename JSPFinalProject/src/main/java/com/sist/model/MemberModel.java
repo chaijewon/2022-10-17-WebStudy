@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.MemberDAO;
+import com.sist.vo.MemberVO;
 import com.sist.vo.ZipcodeVO;
 
 import java.util.*;
@@ -53,6 +54,62 @@ public class MemberModel {
 	  request.setAttribute("count", count);
 	  request.setAttribute("list", list);
 	  return "../member/postfind_result.jsp";
+  }
+  @RequestMapping("member/email_check.do")
+  public String member_email_check(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String email=request.getParameter("email");
+	  MemberDAO dao=new MemberDAO();
+	  int count=dao.memberEmailCheck(email);
+	  request.setAttribute("count", count);
+	  return "../member/email_check.jsp";
+  }
+  @RequestMapping("member/tel_check.do")
+  public String member_tel_check(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String phone=request.getParameter("phone");
+	  MemberDAO dao=new MemberDAO();
+	  int count=dao.memberPhoneCheck(phone);
+	  request.setAttribute("count", count);
+	  return "../member/tel_check.jsp";
+  }
+  @RequestMapping("member/join_ok.do")
+  public String member_insert(HttpServletRequest request,HttpServletResponse response)
+  {
+	  try
+	  {
+		  request.setCharacterEncoding("UTF-8");
+	  }catch(Exception ex) {}
+	  String id=request.getParameter("id");
+	  String pwd=request.getParameter("pwd");
+	  String name=request.getParameter("name");
+	  String sex=request.getParameter("sex");
+	  String birthday=request.getParameter("birthday");
+	  String post=request.getParameter("post");
+	  String addr1=request.getParameter("addr1");
+	  String addr2=request.getParameter("addr2");
+	  String email=request.getParameter("email");
+	  String tel1=request.getParameter("tel1");
+	  String tel2=request.getParameter("tel2");
+	  String content=request.getParameter("content");
+	  
+	  MemberVO vo=new MemberVO();
+	  vo.setId(id);
+	  vo.setPwd(pwd);
+	  vo.setName(name);
+	  vo.setSex(sex);
+	  vo.setBirthday(birthday);
+	  vo.setPost(post);
+	  vo.setAddr1(addr1);
+	  vo.setAddr2(addr2);
+	  vo.setEmail(email);
+	  vo.setContent(content);
+	  vo.setPhone(tel1+"-"+tel2);
+	  
+	  MemberDAO dao=new MemberDAO();
+	  dao.memberInsert(vo);
+	  
+	  return "redirect:../main/main.do";
   }
 }
 
