@@ -316,6 +316,104 @@ public class FreeBoardDAO {
 	  return list;
   }
   
+  public void replyUpdate(int rno,String msg) // Model
+  {
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="UPDATE project_reply SET "
+				    +"msg=? "
+				    +"WHERE rno=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, msg);
+		  ps.setInt(2, rno);
+		  ps.executeUpdate();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+  }
+  /*
+   *        gi DESC,gs ASC
+   *                           gi   gs   gt
+   *      AAAAAAAAA            2     0   0
+   *         
+   *         =>BBBBBBBB        2     2   1
+   *          =>CCCCCCCCC      2     3   2
+   *         =>PPPPPPPPP       2     1   1 
+   *      DDDDDDDDDD
+   *         =>KKKKKKKKK
+   */
+  // 트랜잭션 프로그램 (일괄처리) => SQL문장 여러개를 동시에 수행 ==> 스프링 (chapter장)
+  public void replyReplyInsert(int root,BoardReplyVO vo)
+  {
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  conn.setAutoCommit(false);
+		  //1. root가 가지고 있는 group_id,group_step, group_tab을 가지고 온다 
+		  String sql="SELECT group_id,group_step,group_tab "
+				    +"FROM project_reply "
+				    +"WHERE rno=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, root);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  int gi=rs.getInt(1);
+		  int gs=rs.getInt(2);
+		  int gt=rs.getInt(3);
+		  rs.close();
+		  //2. group_step 증가 
+		  sql="UPDATE project_reply SET "
+		     +"group_step=group_step+1 "
+		     +"WHERE group_id=? AND group_step>?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, gi);
+		  ps.setInt(2, gs);
+		  ps.executeUpdate();//commit()
+		  //3. INSERT commit() =======================> rollback은 수행을 하지 않는다(기술면접)
+		  sql="INSERT INTO project_reply(rno,bno,id,name,msg,group_id,group_step,group_tab,root) "
+		     +"VALUES(pr_rno_seq.nextval,?,?,?,?,?,?,?,?)";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, vo.getBno());
+		  ps.setString(2, vo.getId());
+		  ps.setString(3, vo.getName());
+		  ps.setString(4, vo.getMsg());
+		  ps.setInt(5, gi);
+		  ps.setInt(6, gs+1);
+		  ps.setInt(7, gt+1);
+		  ps.setInt(8, root);
+		  ps.executeUpdate();
+		  //4. UPDATE (depth증가) commit()
+		  sql="UPDATE project_reply SET "
+			 +"depth=depth+1 "
+			 +"WHERE rno=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, root);
+		  ps.executeUpdate();
+		  conn.commit();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+		  try
+		  {
+			  conn.rollback();
+		  }catch(Exception e) {}
+	  }
+	  finally
+	  {
+		  try
+		  {
+			  conn.setAutoCommit(true);
+		  }catch(Exception ex) {}
+		  CreateConnection.disConnection(conn, ps);
+	  }
+  }
+  
 }
 
 

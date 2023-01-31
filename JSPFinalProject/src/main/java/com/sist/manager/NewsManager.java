@@ -71,6 +71,7 @@ public class NewsManager{
         		NewsVO n=new NewsVO();
         		n.setTitle((String)obj.get("title"));
         		n.setContent(desc);
+        		n.setLink((String)obj.get("link"));
         		list.add(n);
         	}
         			

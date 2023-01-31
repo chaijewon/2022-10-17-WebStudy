@@ -23,9 +23,9 @@
     <div class="one_half">
       <h6 class="title">오늘의 뉴스</h6>
       <ul class="nospace linklist">
-        <c:forEach var="vo" items="${newList }" varStatus="s">
+        <c:forEach var="nvo" items="${newList }" varStatus="s">
           <c:if test="${s.index<5 }">
-           <li><a href="#">${s.index+1 }.${vo.title }</a></li>
+           <li><a href="${nvo.link }" target="_blank">${s.index+1 }.${nvo.title }</a></li>
           </c:if>
         </c:forEach>
       </ul>
