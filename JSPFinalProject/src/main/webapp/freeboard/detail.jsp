@@ -180,7 +180,7 @@ $(function(){
                 <c:if test="${sessionScope.id!=null }">
                  <c:if test="${sessionScope.id==rvo.id }">
                   <span class="btn btn-xs btn-success ups" data-no="${rvo.rno }">수정</span>
-                  <a href="#" class="btn btn-xs btn-info">삭제</a>
+                  <a href="../freeboard/reply_delete.do?rno=${rvo.rno }&bno=${vo.no}" class="btn btn-xs btn-info">삭제</a>
                  </c:if>
                  <span class="btn btn-xs btn-warning replys" data-no="${rvo.rno }">댓글</span>
                 </c:if>

@@ -414,6 +414,70 @@ public class FreeBoardDAO {
 	  }
   }
   
+  public void replyDelete(int rno)
+  {
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  conn.setAutoCommit(false);
+		  //1. root,depth 
+		  String sql="SELECT root,depth FROM project_reply "
+				    +"WHERE rno=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, rno);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  int root=rs.getInt(1);
+		  int depth=rs.getInt(2);
+		  rs.close();
+		  //2. depth=0 (DELETE), depth!=0(UPDATE)
+		  if(depth==0)
+		  {
+			  sql="DELETE FROM project_reply "
+				 +"WHERE rno=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, rno);
+			  ps.executeUpdate();
+			  // depth가 감소 => root
+			  sql="UPDATE project_reply SET "
+				 +"depth=depth-1 "
+				 +"WHERE rno=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, root);
+			  ps.executeUpdate();
+			  
+		  }
+		  else
+		  {
+			  String msg="관리자가 삭제한 댓글입니다";
+			  sql="UPDATE project_reply SET "
+				 +"msg=? "
+			     +"WHERE rno=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, msg);
+			  ps.setInt(2, rno);
+			  ps.executeUpdate();
+		  }
+		  //3. depth감소
+		  conn.commit();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+		  try
+		  {
+			  conn.rollback();
+		  }catch(Exception e) {}
+	  }
+	  finally
+	  {
+		  try
+		  {
+			  conn.setAutoCommit(true);
+			  CreateConnection.disConnection(conn, ps);
+		  }catch(Exception ex){}
+	  }
+  }
+  
 }
 
 

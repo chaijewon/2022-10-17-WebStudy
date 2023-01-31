@@ -280,6 +280,16 @@ public class FreeBoardModel {
 	  dao.replyReplyInsert(Integer.parseInt(pno), vo);
 	  return "redirect:detail.do?no="+bno;
   }
+  @RequestMapping("freeboard/reply_delete.do")
+  public String reply_delete(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String rno=request.getParameter("rno");
+	  String bno=request.getParameter("bno");
+	  FreeBoardDAO dao=new FreeBoardDAO();
+	  // 삭제 처리 
+	  dao.replyDelete(Integer.parseInt(rno));
+	  return "redirect:detail.do?no="+bno;
+  }
 }
 
 
