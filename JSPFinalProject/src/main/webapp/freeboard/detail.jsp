@@ -10,6 +10,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 let i=0;
+let u=0;
+let r=0;
 $(function(){
 	$('#delete').click(function(){
 		if(i===0)
@@ -52,6 +54,22 @@ $(function(){
 				}
 			}
 		})
+	})
+	
+	$('.ups').click(function(){
+		$('.rinsert').hide();
+		$('.rupdate').hide();
+		let no=$(this).attr("data-no");
+		if(u===0)
+		{
+			$('#u'+no).show();
+			i=1;
+		}
+		else
+		{
+			$('#u'+no).hide();
+			i=0;
+		}
 	})
 })
 </script>
