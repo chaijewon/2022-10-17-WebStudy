@@ -43,6 +43,34 @@ public class AllReplyModel {
 	   String no=request.getParameter("no");
 	   String cate_no=request.getParameter("cate_no");
 	   // DAO연결
+	   AllReplyDAO dao=new AllReplyDAO();
+	   dao.allReplyDelete(Integer.parseInt(rno));
+	   return "redirect:"+url[Integer.parseInt(cate_no)]+no;
+   }
+   
+   @RequestMapping("all_reply/all_reply_update.do")
+   public String all_reply_update(HttpServletRequest request,HttpServletResponse response)
+   {
+	   // Java => 브라우저 => Java
+	   //    encoding   decoding
+	   /*
+	    *    byte[]  ==> 원상복귀 
+	    *    자바(%EC%9E%90%EB%B0%94) ==>  %EC%9E%90%EB%B0%94(자바)
+	    *    
+	    *    POST => GET (server.xml => windows 10) => 자동으로 처리 
+	    *    windows => linux (AWS) PaaS (운영체제) => 호스팅 
+	    */
+	   try
+	   {
+		   request.setCharacterEncoding("UTF-8"); 
+	   }catch(Exception ex) {}
+	   String rno=request.getParameter("rno");
+	   String no=request.getParameter("no");
+	   String cate_no=request.getParameter("cate_no");
+	   String msg=request.getParameter("msg");
+	   // 데이터베이스 연결 
+	   AllReplyDAO dao=new AllReplyDAO();
+	   dao.allReplyUpdate(Integer.parseInt(rno), msg);
 	   return "redirect:"+url[Integer.parseInt(cate_no)]+no;
    }
 }

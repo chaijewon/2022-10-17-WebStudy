@@ -6,6 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+let u=0;
+$(function(){
+	$('.ups').click(function(){
+		$('.rupdate').hide();
+		let rno=$(this).attr("data-no");
+		if(u==0)
+		{
+			$(this).text("취소");
+			$('#u'+rno).show();
+			u=1;
+		}
+		else
+		{
+			$(this).text("수정");
+			$('#u'+rno).hide();
+			u=0;
+		}
+	})
+})
+</script>
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -332,7 +354,7 @@ function removeAllChildNods(el) {
 	             <td class="text-right" width=15%>
 	               <c:if test="${sessionScope.id!=null }">
 	                 <c:if test="${sessionScope.id==rvo.id }">
-	                   <a href="#" class="btn btn-xs btn-danger">수정</a>
+	                   <span class="btn btn-xs btn-danger ups" data-no="${rvo.rno }">수정</span>
 	                   <a href="../all_reply/all_reply_delete.do?rno=${rvo.rno }&no=${vo.no}&cate_no=1" class="btn btn-xs btn-primary">삭제</a>
 	                 </c:if>
 	               </c:if>
@@ -341,6 +363,17 @@ function removeAllChildNods(el) {
 	           <tr>
 	             <td colspan="2"><pre style="white-space:pre-wrap;background-color: white;border:none ">${rvo.msg }</pre></td>
 	           </tr>
+	           <tr id="u${rvo.rno }" class="rupdate" style="display:none">
+	             <td colspan="2">
+	               <form method="post" action="../all_reply/all_reply_update.do">
+			         <input type=hidden name="no" value="${vo.no }">
+			         <input type=hidden name="rno" value="${rvo.rno }">
+			         <input type=hidden name="cate_no" value="1">
+			         <textarea rows="3" cols="90" name="msg" style="float: left">${rvo.msg}</textarea>&nbsp;
+			         <input type=submit value="수정" class="btn btn-sm btn-danger" style="height: 65px">
+			        </form>
+	             </td>
+	            </tr>
 	         </table>
 	       </c:forEach>
 	      </td>

@@ -114,4 +114,26 @@ public class AllReplyDAO {
 		  CreateConnection.disConnection(conn, ps);
 	  }
   }
+  // 수정 
+  public void allReplyUpdate(int rno,String msg)
+  {
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="UPDATE project_all_reply SET "
+				    +"msg=? "
+				    +"WHERE rno=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, msg);
+		  ps.setInt(2, rno);
+		  ps.executeUpdate();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+  }
 }
