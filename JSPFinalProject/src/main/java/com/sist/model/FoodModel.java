@@ -98,6 +98,16 @@ public class FoodModel {
 	   request.setAttribute("rList", rList);
 	   request.setAttribute("count", rList.size());
 	   CommonsModel.footerData(request);
+	   // 한식 / 고기  ==> 한식|고기 
+	   String type=vo.getType();
+	   int index=type.indexOf('/');
+	   if(index>-1)
+	   {
+		   type=type.replace('/','|');
+	   }
+	   List<RecipeVO> nList=dao.food_recipe_data(type);
+	   request.setAttribute("nList", nList);
+	   
 	   return "../main/main.jsp";
    }
 }

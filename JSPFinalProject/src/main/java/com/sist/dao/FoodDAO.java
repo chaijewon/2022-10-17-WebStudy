@@ -244,7 +244,11 @@ public class FoodDAO {
 		   ResultSet rs=ps.executeQuery();
 		   while(rs.next())
 		   {
-			   
+			   RecipeVO vo=new RecipeVO();
+			   vo.setTitle(rs.getString(1));
+			   vo.setPoster(rs.getString(2));
+			   vo.setChef(rs.getString(3));
+			   list.add(vo);
 		   }
 		   rs.close();
 	   }catch(Exception ex)
@@ -257,6 +261,7 @@ public class FoodDAO {
 	   }
 	   return list;
    }
+   
 }
 
 
