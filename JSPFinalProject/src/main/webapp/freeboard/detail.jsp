@@ -186,11 +186,20 @@ $(function(){
                 </c:if>
               </td>
             </tr>
+            <c:if test="${rvo.msg!='관리자가 삭제한 댓글입니다' }">
             <tr>
               <td colspan="2">
                <pre style="white-space: pre-wrap;background-color: white;border: none">${rvo.msg }</pre>
               </td>
             </tr>
+            </c:if>
+            <c:if test="${rvo.msg=='관리자가 삭제한 댓글입니다' }">
+            <tr>
+              <td colspan="2">
+               <pre style="white-space: pre-wrap;background-color: white;border: none;color:gray">${rvo.msg }</pre>
+              </td>
+            </tr>
+            </c:if>
             <%-- 대댓글 --%>
             <tr id="r${rvo.rno }" class="rinsert" style="display:none">
              <td colspan="2">
