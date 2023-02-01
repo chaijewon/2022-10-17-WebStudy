@@ -13,7 +13,7 @@
           </li>
           <li>커뮤니티 관리
             <ul>
-              <li><a href="#">공지사항</a></li>
+              <li><a href="../adminpage/notice_list.do">공지사항</a></li>
               <li><a href="#">묻고답하기</a></li>
               <li><a href="#">자유게시판</a>
                 <ul>
