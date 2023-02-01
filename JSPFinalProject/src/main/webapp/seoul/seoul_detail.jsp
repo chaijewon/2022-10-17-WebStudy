@@ -333,7 +333,7 @@ function removeAllChildNods(el) {
 	               <c:if test="${sessionScope.id!=null }">
 	                 <c:if test="${sessionScope.id==rvo.id }">
 	                   <a href="#" class="btn btn-xs btn-danger">수정</a>
-	                   <a href="#" class="btn btn-xs btn-primary">삭제</a>
+	                   <a href="../all_reply/all_reply_delete.do?rno=${rvo.rno }&no=${vo.no}&cate_no=1" class="btn btn-xs btn-primary">삭제</a>
 	                 </c:if>
 	               </c:if>
 	             </td>
@@ -352,7 +352,7 @@ function removeAllChildNods(el) {
 	    <table class="table">
 	     <tr>
 	       <td>
-	        <form method="post" action="../seoul/all_reply_insert.do">
+	        <form method="post" action="../all_reply/all_reply_insert.do">
 	         <input type=hidden name="no" value="${vo.no }">
 	         <input type=hidden name="cate_no" value="1">
 	         <%--

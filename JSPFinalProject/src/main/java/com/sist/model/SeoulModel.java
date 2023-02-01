@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
+import com.sist.dao.AllReplyDAO;
 import com.sist.dao.SeoulDAO;
+import com.sist.vo.AllReplyVO;
 import com.sist.vo.FoodVO;
 import com.sist.vo.SeoulVO;
 
@@ -84,7 +86,14 @@ public class SeoulModel {
 	   request.setAttribute("addr", addr[2]+" 맛집");
 	   List<FoodVO> list=dao.seoulFoodFindData(addr[2]);
 	   request.setAttribute("list", list);
+	   
+	   AllReplyDAO adao=new AllReplyDAO();
+	   List<AllReplyVO> rList=adao.allReplyListData(Integer.parseInt(no), 1);
+	   request.setAttribute("rList", rList);
+	   request.setAttribute("count", rList.size());
 	   CommonsModel.footerData(request);
+	   
+	 
 	   return "../main/main.jsp";
    }
 }
