@@ -197,6 +197,84 @@ public class MemberModel {
   public void member_join_update_ok(HttpServletRequest request,HttpServletResponse response)
   {
 	   // ajax 
+	  try
+	  {
+		  request.setCharacterEncoding("UTF-8");
+	  }catch(Exception ex) {}
+	  String id=request.getParameter("id");
+	  String pwd=request.getParameter("pwd");
+	  String name=request.getParameter("name");
+	  String sex=request.getParameter("sex");
+	  String birthday=request.getParameter("birthday");
+	  String post=request.getParameter("post");
+	  String addr1=request.getParameter("addr1");
+	  String addr2=request.getParameter("addr2");
+	  String email=request.getParameter("email");
+	  String tel1=request.getParameter("tel1");
+	  String tel2=request.getParameter("tel2");
+	  String content=request.getParameter("content");
+	  
+	  MemberVO vo=new MemberVO();
+	  vo.setId(id);
+	  vo.setPwd(pwd);
+	  vo.setName(name);
+	  vo.setSex(sex);
+	  vo.setBirthday(birthday);
+	  vo.setPost(post);
+	  vo.setAddr1(addr1);
+	  vo.setAddr2(addr2);
+	  vo.setEmail(email);
+	  vo.setContent(content);
+	  vo.setPhone(tel1+"-"+tel2);
+	  
+	  MemberDAO dao=new MemberDAO();
+	  boolean bCheck=dao.memberJoinUpdate(vo);
+	  try
+	  {
+	      PrintWriter out=response.getWriter();
+	      if(bCheck==true)
+	      {
+	    	  out.println("yes");
+	    	  HttpSession session=request.getSession();
+	    	  session.setAttribute("name", vo.getName());
+	      }
+	      else 
+	      {
+	    	  out.println("no");
+	      }
+	  }catch(Exception ex) {}
+  }
+  
+  @RequestMapping("member/join_delete.do")
+  public String member_delete(HttpServletRequest request,HttpServletResponse response)
+  {
+	  
+	  request.setAttribute("main_jsp", "../member/join_delete.jsp");
+	  CommonsModel.footerData(request);
+	  return "../main/main.jsp";
+  }
+  
+  @RequestMapping("member/join_delete_ok.do")
+  public void member_delete_ok(HttpServletRequest request,HttpServletResponse response)
+  {
+	  HttpSession session=request.getSession();
+	  String id=(String)session.getAttribute("id");
+	  String pwd=request.getParameter("pwd");
+	  MemberDAO dao=new MemberDAO();
+	  boolean bCheck=dao.memberJoinDelete(id, pwd);
+	  try
+	  {
+		  PrintWriter out=response.getWriter();
+		  if(bCheck==true)
+		  {
+			  out.println("yes");
+			  session.invalidate();
+		  }
+		  else
+		  {
+			  out.println("no");
+		  }
+	  }catch(Exception ex) {}
   }
 }
 

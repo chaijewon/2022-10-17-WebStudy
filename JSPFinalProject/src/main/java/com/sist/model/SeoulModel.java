@@ -101,6 +101,7 @@ public class SeoulModel {
 	   return "../main/main.jsp";
    }
    @RequestMapping("seoul/seoul_weather.do")
+   // timeout(10000).validateTLSCertificates(false)
    public String seoul_weather(HttpServletRequest request,HttpServletResponse response)
    {
 	   System.out.println(1);

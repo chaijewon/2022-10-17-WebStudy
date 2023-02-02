@@ -296,6 +296,55 @@ public class MemberDAO {
 	   }
 	   return vo;
    }
+   
+   // 회원 수정 
+   public boolean memberJoinUpdate(MemberVO vo)
+   {
+	   boolean bCheck=false;
+	   try
+	   {
+		   conn=CreateConnection.getConnection();
+		   String sql="SELECT pwd FROM project_member "
+				     +"WHERE id=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, vo.getId());
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   
+		   if(db_pwd.equals(vo.getPwd()))
+		   {
+			   bCheck=true;
+			   sql="UPDATE project_member SET "
+				  +"name=?,sex=?,email=?,phone=?,content=?,birthday=?,"
+				  +"post=?,addr1=?,addr2=? "
+				  +"WHERE id=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1,vo.getName());
+			   ps.setString(2,vo.getSex());
+			   ps.setString(3,vo.getEmail());
+			   ps.setString(4,vo.getPhone());
+			   ps.setString(5,vo.getContent());
+			   ps.setString(6,vo.getBirthday());
+			   ps.setString(7,vo.getPost());
+			   ps.setString(8,vo.getAddr1());
+			   ps.setString(9,vo.getAddr2());
+			   ps.setString(10,vo.getId());
+			   
+			   ps.executeUpdate();
+		   }
+		   
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   CreateConnection.disConnection(conn, ps);
+	   }
+	   return bCheck;
+   }
    // 4. ID찾기 
    public String memberIdfind(String tel)
    {
@@ -381,6 +430,41 @@ public class MemberDAO {
    // 5. PWD 찾기 
    
    // 6. 회원 탈퇴 
+   public boolean memberJoinDelete(String id,String pwd)
+   {
+	   boolean bCheck=false;
+	   try
+	   {
+		   conn=CreateConnection.getConnection();
+		   String sql="SELECT pwd FROM project_member "
+				     +"WHERE id=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, id);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   
+		   if(db_pwd.equals(pwd))
+		   {
+			   bCheck=true;
+			   sql="DELETE FROM project_member "
+				  +"WHERE id=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, id);
+			   ps.executeUpdate();
+		   }
+		   
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   CreateConnection.disConnection(conn, ps);
+	   }
+	   return bCheck;
+   }
 }
 
 

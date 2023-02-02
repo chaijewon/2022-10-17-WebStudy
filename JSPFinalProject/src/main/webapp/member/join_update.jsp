@@ -143,7 +143,29 @@ $(function(){
 			return;
 		}
 		
-		$('#join_frm').submit();
+		//$('#join_frm').submit();
+		let formData=$('#join_frm').serialize()
+		$.ajax({
+			type:'post',
+			url:'../member/join_update_ok.do',
+			data:formData,
+			success:function(response)
+			{
+				let res=response.trim();
+				if(res==='no') // 비밀번호가 틀린 경우
+				{
+					alert("비밀번호가 틀립니다");
+					$('#join_pwd').val("");
+					$('#join_pwd').focus();
+				}
+				else // 비밀번호가 맞는 경우 
+				{
+					alert("회원 수정이 완료되었습니다")
+					location.href="../main/main.do";
+				}
+			}
+		})
+		
 	})
 })
 </script>
