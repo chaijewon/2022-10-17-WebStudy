@@ -246,7 +246,56 @@ public class MemberDAO {
 	   }
 	   return vo;
    }
+   /*
+    *   ID       NOT NULL VARCHAR2(20)  
+		PWD      NOT NULL VARCHAR2(10)  
+		NAME     NOT NULL VARCHAR2(34)  
+		SEX               VARCHAR2(6)   
+		BIRTHDAY NOT NULL VARCHAR2(15)  
+		EMAIL             VARCHAR2(50)  
+		POST     NOT NULL VARCHAR2(7)   
+		ADDR1    NOT NULL VARCHAR2(200) 
+		ADDR2             VARCHAR2(200) 
+		PHONE    NOT NULL VARCHAR2(20)  
+		CONTENT           CLOB          
+		ADMIN             CHAR(1)       
+		RGDATE            DATE  
+    */
    // 3. 회원 수정 
+   public MemberVO memberJoinUpdateData(String id)
+   {
+	   MemberVO vo=new MemberVO();
+	   try
+	   {
+		   conn=CreateConnection.getConnection();
+		   String sql="SELECT id,name,sex,birthday,email,post,addr1,addr2,phone,content "
+				     +"FROM project_member "
+				     +"WHERE id=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, id);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setId(rs.getString(1));
+		   vo.setName(rs.getString(2));
+		   vo.setSex(rs.getString(3));
+		   vo.setBirthday(rs.getString(4));
+		   vo.setEmail(rs.getString(5));
+		   vo.setPost(rs.getString(6));
+		   vo.setAddr1(rs.getString(7));
+		   vo.setAddr2(rs.getString(8));
+		   vo.setPhone(rs.getString(9));
+		   vo.setContent(rs.getString(10));
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   CreateConnection.disConnection(conn, ps);
+	   }
+	   return vo;
+   }
    // 4. ID찾기 
    public String memberIdfind(String tel)
    {
@@ -288,7 +337,49 @@ public class MemberDAO {
 	   }
 	   return result;
    }
+   
+   public String memberIdfind2(String email)
+   {
+	   String result="";
+	   try
+	   {
+		   conn=CreateConnection.getConnection();
+		   String sql="SELECT COUNT(*) FROM project_member "
+				     +"WHERE email=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, email);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   int count=rs.getInt(1);
+		   rs.close();
+		   
+		   if(count==0)
+		   {
+			   result="NO";
+		   }
+		   else
+		   {
+			   sql="SELECT RPAD(SUBSTR(id,1,1),LENGTH(id),'*') FROM project_member "
+				  +"WHERE email=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, email);
+			   rs=ps.executeQuery();
+			   rs.next();
+			   result=rs.getString(1);
+			   rs.close();
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   CreateConnection.disConnection(conn, ps);
+	   }
+	   return result;
+   }
    // 5. PWD 찾기 
+   
    // 6. 회원 탈퇴 
 }
 

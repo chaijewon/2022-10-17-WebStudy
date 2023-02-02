@@ -37,7 +37,31 @@ $( function() {
     	})
     })
     $('#emailBtn').click(function(){
-    	
+    	let email=$('#email').val();
+    	if(email.trim()=="")
+    	{
+    		$('#email').focus();
+    		return
+    	}
+    	$.ajax({
+    		type:'post',
+    		url:'../member/idfind2_ok.do',
+    		data:{"email":email},
+    		success:function(response) // responseText , responseXML
+    		{
+    			let res=response.trim();
+    			if(res==='NO')
+    			{
+    				$('#email_result').text("존재하지 않는 이메일입니다!!")
+    				$('#email').val("")
+    				$('#email').focus();
+    			}
+    			else
+    			{
+    				$('#email_result').html("<font color=red size=20px>"+res+"</font>")
+    			}
+    		}
+    	})
     })
 });
   </script>

@@ -163,6 +163,41 @@ public class MemberModel {
 		  // Spring => @RestController , @ResponseBody
 	  }catch(Exception ex){}
   }
+  @RequestMapping("member/idfind2_ok.do")
+  public void member_idfind2_ok(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String email=request.getParameter("email");
+	  MemberDAO dao=new MemberDAO();
+	  String res=dao.memberIdfind2(email);
+	  try
+	  {
+		  PrintWriter out=response.getWriter();
+		  out.println(res);
+		  // Spring => @RestController , @ResponseBody
+	  }catch(Exception ex){}
+  }
+  
+  // => 회원 수정 , 회원 탈퇴 => session(이름변경헤서 저장) , session을 해제 
+  @RequestMapping("member/join_update.do")
+  public String member_join_update(HttpServletRequest request,HttpServletResponse response)
+  {
+	  HttpSession session=request.getSession();
+	  String id=(String)session.getAttribute("id");
+	  MemberDAO dao=new MemberDAO();
+	  // DB연동 
+	  MemberVO vo=dao.memberJoinUpdateData(id);
+	  String phone=vo.getPhone();
+	  phone=phone.substring(phone.indexOf("-")+1);
+	  vo.setPhone(phone);
+	  request.setAttribute("vo", vo);
+	  request.setAttribute("main_jsp", "../member/join_update.jsp");
+	  return "../main/main.jsp";
+  }
+  @RequestMapping("member/join_update_ok.do")
+  public void member_join_update_ok(HttpServletRequest request,HttpServletResponse response)
+  {
+	   // ajax 
+  }
 }
 
 
