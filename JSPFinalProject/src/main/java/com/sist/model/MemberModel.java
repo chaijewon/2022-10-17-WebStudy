@@ -10,6 +10,7 @@ import com.sist.dao.MemberDAO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.ZipcodeVO;
 
+import java.io.PrintWriter;
 import java.util.*;
 @Controller
 public class MemberModel {
@@ -141,6 +142,26 @@ public class MemberModel {
 	  HttpSession session=request.getSession();
 	  session.invalidate();// 모든 정보 해제 
 	  return "redirect:../main/main.do";
+  }
+  
+  @RequestMapping("member/idfind.do")
+  public String member_idfind(HttpServletRequest request,HttpServletResponse response)
+  {
+	  request.setAttribute("main_jsp", "../member/idfind.jsp");
+	  return "../main/main.jsp";
+  }
+  @RequestMapping("member/idfind_ok.do")
+  public void member_idfind_ok(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String tel=request.getParameter("tel");
+	  MemberDAO dao=new MemberDAO();
+	  String res=dao.memberIdfind(tel);
+	  try
+	  {
+		  PrintWriter out=response.getWriter();
+		  out.println(res);
+		  // Spring => @RestController , @ResponseBody
+	  }catch(Exception ex){}
   }
 }
 

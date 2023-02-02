@@ -248,6 +248,58 @@ public class MemberDAO {
    }
    // 3. 회원 수정 
    // 4. ID찾기 
+   public String memberIdfind(String tel)
+   {
+	   String result="";
+	   try
+	   {
+		   conn=CreateConnection.getConnection();
+		   String sql="SELECT COUNT(*) FROM project_member "
+				     +"WHERE phone=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, tel);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   int count=rs.getInt(1);
+		   rs.close();
+		   
+		   if(count==0)
+		   {
+			   result="NO";
+		   }
+		   else
+		   {
+			   sql="SELECT RPAD(SUBSTR(id,1,1),LENGTH(id),'*') FROM project_member "
+				  +"WHERE phone=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, tel);
+			   rs=ps.executeQuery();
+			   rs.next();
+			   result=rs.getString(1);
+			   rs.close();
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   CreateConnection.disConnection(conn, ps);
+	   }
+	   return result;
+   }
    // 5. PWD 찾기 
    // 6. 회원 탈퇴 
 }
+
+
+
+
+
+
+
+
+
+
+
+

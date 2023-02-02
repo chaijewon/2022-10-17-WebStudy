@@ -102,8 +102,8 @@ $(function(){
         <c:if test="${sessionScope.id==null }"><%-- 로그인이 안된 상태 --%>
 	        <ul>
 	          <li><a href="../member/join.do">회원가입</a></li>
-	          <li><a href="pages/full-width.html">아이디찾기</a></li>
-	          <li><a href="pages/sidebar-left.html">비밀번호찾기</a></li>
+	          <li><a href="../member/idfind.do">아이디찾기</a></li>
+	          <li><a href="../member/pwdfind.do">비밀번호찾기</a></li>
 	        </ul>
         </c:if>
         <c:if test="${sessionScope.id!=null }">
@@ -128,7 +128,7 @@ $(function(){
           <li><a href="../seoul/seoul_list.do?type=2">자연&관광</a></li>
           <li><a href="../seoul/seoul_list.do?type=3">쇼핑</a></li>
           <li><a href="../seoul/seoul_list.do?type=4">호텔</a></li>
-          <li><a href="../seoul/seoul_list.do?type=5">게스트하우스</a></li>
+          <li><a href="../seoul/seoul_weather.do">오늘의 날씨</a></li>
          <c:if test="${sessionScope.id!=null }">
           <li><a href="pages/sidebar-left.html">여행코스</a></li>
          </c:if>
