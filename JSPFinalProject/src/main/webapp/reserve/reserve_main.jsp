@@ -6,7 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript">
 $(function(){
 	$.ajax({
@@ -31,6 +34,10 @@ $(function(){
 			}
 		})
 	})
+	$('#locBtn').click(function(){
+		$( "#dialog" ).dialog();
+	})
+	
 })
 </script>
 </head>
@@ -77,18 +84,27 @@ $(function(){
        <td class="info" width=40% height="500">
          <table class="table">
            <caption><h3>예약일 정보</h3></caption>
+           <tr>
+             <td>
+              <div id="select_date"></div>
+             </td>
+           </tr>
          </table>
        </td>
        <td class="danger" width=30% rowspan="2" height="700">
          <table class="table">
            <caption><h3>예약 정보</h3></caption>
            <tr>
-             <td class="text-center">
+             <td class="text-center" colspan="2">
               <img src="../reserve/image/def.png" style="width: 250px;height: 200px" id="food_img">
              </td>
            </tr>
            <tr>
-             <td><span id="food_name"></span></td>
+             <td class="text-left" colspan="2"><span id="food_name" style="color:black"></span></td>
+           </tr>
+           <tr>
+             <th width="30%">예약일</th>
+             <td width=70%><span id="r_day"></span></td>
            </tr>
          </table>
        </td>
@@ -106,6 +122,9 @@ $(function(){
        </td>
      </tr>
    </table>
+   <!-- <div id="dialog" title="Basic dialog">
+    <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the &apos;x&apos; icon.</p>
+   </div> -->
   </main>
 </body>
 </html>
