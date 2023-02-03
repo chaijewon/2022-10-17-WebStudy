@@ -131,6 +131,12 @@ public class FoodModel {
 	   }
 	   List<RecipeVO> nList=dao.food_recipe_data(type);
 	   request.setAttribute("nList1", nList);
+	   
+	   HttpSession session=request.getSession();
+	   String id=(String)session.getAttribute("id");
+	   JjimDAO jdao=new JjimDAO();
+	   int jcount=jdao.jjimCount(Integer.parseInt(fno), id);
+	   request.setAttribute("jjim_count", jcount);
 	   CommonsModel.footerData(request);
 	   return "../main/main.jsp";
    }
