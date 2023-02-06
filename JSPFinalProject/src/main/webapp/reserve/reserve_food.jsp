@@ -20,7 +20,7 @@ $(function(){
 		let fno=$(this).attr("data-fno")
 		$('#food_img').attr("src",img)
 		$('#food_name').text(name)
-		
+		$('#fno').val(fno)
 		$.ajax({
 			type:'post',
 			url:'../reserve/reserve_date.do',

@@ -12,7 +12,15 @@ $(function(){
 	$('.times').click(function(){
 		let time=$(this).text();
 		$('#r_time').text(time);
-		
+		$('#reservetime').val(time);
+		$.ajax({
+			type:'post',
+			url:'../reserve/reserve_inwon.do',
+			success:function(response)
+			{
+				$('#select_inwon').html(response)
+			}
+		})
 	})
 })
 </script>

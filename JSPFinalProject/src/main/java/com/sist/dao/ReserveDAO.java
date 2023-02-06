@@ -119,5 +119,61 @@ public class ReserveDAO {
 	  return times;
   }
   // 예약 정보 저장 
+  /*
+   *            RNO        NOT NULL NUMBER       
+				FNO                 NUMBER  O    
+				ID                  VARCHAR2(20)  O
+				RDATE      NOT NULL VARCHAR2(20)  O
+				RTIME      NOT NULL VARCHAR2(20)  O
+				INWON               NUMBER       
+				RESERVE_NO NOT NULL VARCHAR2(20)  O
+				OK                  CHAR(1)       'n'  
+				REGDATE             DATE     SYSDATE
+   */
+  public void reserveOk(ReserveVO vo)
+  {
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="INSERT INTO project_reserve VALUES("
+				    +"(SELECT NVL(MAX(rno)+1,1) FROM project_reserve),?,?,?,?,?,?,'n',,SYSDATE)";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, vo.getFno());
+		  ps.setString(2, vo.getId());
+		  ps.setString(3, vo.getRdate());
+		  ps.setString(4, vo.getRtime());
+		  ps.setInt(5, vo.getInwon());
+		  ps.setString(6, vo.getReserve_no());
+		  ps.executeUpdate();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+  }
+  
+  // 예약 정보를 마이페이지에서 읽기
+  public List<ReserveVO> reserveMyPageData(String id)
+  {
+	  List<ReserveVO> list=new ArrayList<ReserveVO>();
+	  return list;
+  }
+  public List<ReserveVO> reserveAdminPageData(String id)
+  {
+	  List<ReserveVO> list=new ArrayList<ReserveVO>();
+	  return list;
+  }
   // 예약 승인 
 }
+
+
+
+
+
+
+
+
+
