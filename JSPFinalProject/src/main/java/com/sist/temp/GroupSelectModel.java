@@ -30,6 +30,7 @@ public class GroupSelectModel {
 		     
 		   }
 		   com[s]=1;
+		   rand[i]=s;
 	   }
 	   
 	   
