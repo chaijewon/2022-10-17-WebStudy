@@ -110,14 +110,33 @@ public class FreeBoardModel {
 	  // 출력에 필요한 데이터 전송 
 	  // 사용자 요청한 데이터를 받아서 처리 => 게시물 번호
 	  String no=request.getParameter("no"); // 상세보기 => 1개만 출력 ==> primary key
+	  String num=request.getParameter("num");
 	  // DAO로 전송 => 오라클에서 데이터 읽기 
 	  FreeBoardDAO dao=new FreeBoardDAO();
-	  FreeBoardVO vo=dao.boardDetailData(Integer.parseInt(no));
+	  FreeBoardVO vo=dao.boardDetailData(Integer.parseInt(no),Integer.parseInt(num));
 	  request.setAttribute("vo", vo);
 	  request.setAttribute("main_jsp", "../freeboard/detail.jsp"); // 클릭시마다 데이터가 틀린 경우 
 	  List<BoardReplyVO> list=dao.replyListData(Integer.parseInt(no));
 	  request.setAttribute("list", list);
 	  request.setAttribute("count", list.size());
+	  int total=dao.boardMaxNum();
+	  System.out.println(vo.getNum());
+	  String preSubject="";
+	  if(vo.getNum()<=1)
+		  preSubject="이전 페이지가 없습니다";
+	  else
+		  preSubject=dao.boardPreData(Integer.parseInt(num));
+	  
+	  String nextSubject="";
+	  
+	  if(vo.getNum()>=total)
+		  nextSubject="다음 페이지가 없습니다";
+	  else
+		  nextSubject=dao.boardNextData(Integer.parseInt(num));
+	  
+	  request.setAttribute("preSubject", preSubject);
+	  request.setAttribute("nextSubject", nextSubject);
+	  request.setAttribute("total", total);
 	  CommonsModel.footerData(request);
 	  // 댓글 보내기
 	  

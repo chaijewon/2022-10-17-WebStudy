@@ -319,6 +319,25 @@ public class ReserveDAO {
 	  }
 	  return vo;
   }
+  public void reserveDelete(int rno)
+  {
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="DELETE FROM project_reserve "
+				    +"WHERE rno=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, rno);
+		  ps.executeUpdate();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+  }
 }
 
 

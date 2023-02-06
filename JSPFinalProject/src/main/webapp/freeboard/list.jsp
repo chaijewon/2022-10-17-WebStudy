@@ -51,7 +51,7 @@
       <tr>
         <td width="10%" class="text-center">${vo.no}</td><%-- vo.getNo() = {} getXxx() --%>
         <td width="45%">
-         <a href="../freeboard/detail.do?no=${vo.no }">${vo.subject}</a>&nbsp;
+         <a href="../freeboard/detail.do?no=${vo.no }&num=${vo.num}">${vo.subject}</a>&nbsp;
          <c:if test="${vo.dbday==today }">
            <sup><img src="../freeboard/image/new.gif"></sup>
          </c:if>

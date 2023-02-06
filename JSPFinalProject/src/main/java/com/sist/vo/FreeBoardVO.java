@@ -1,9 +1,16 @@
 package com.sist.vo;
 import java.util.*;
 public class FreeBoardVO {
-    private int no,hit;
+    private int no,hit,num;
     private String name,subject,content,pwd,dbday;
     private Date regdate;
+    
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getNo() {
 		return no;
 	}

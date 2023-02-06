@@ -151,6 +151,29 @@ $(function(){
      </td>
    </tr>
   </table>
+  <div style="height:5px"></div>
+  <table class="table">
+    <tr>
+     <td>이전페이지:
+      <c:if test="${vo.num==1 }">
+        <span>${preSubject }</span>
+      </c:if>
+      <c:if test="${vo.num>1 }">
+        <a href="../freeboard/detail.do?no=${vo.no }&num=${vo.num-1}">${preSubject }</a>
+      </c:if>
+     </td>
+    </tr>
+    <tr>
+     <td>다음페이지:
+     <c:if test="${vo.num==total }">
+        <span>${nextSubject }</span>
+      </c:if>
+      <c:if test="${vo.num!=total }">
+       <a href="../freeboard/detail.do?no=${vo.no }&num=${vo.num+1}">${nextSubject }</a>
+      </c:if>
+     </td>
+    </tr>
+  </table>
   <div style="height: 5px"></div>
   <div class="content three_quarter first">
   <h2 class="sectiontitle">댓글(${count})</h2>

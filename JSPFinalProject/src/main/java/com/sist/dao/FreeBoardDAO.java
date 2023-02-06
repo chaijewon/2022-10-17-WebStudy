@@ -52,7 +52,7 @@ public class FreeBoardDAO {
 			  vo.setName(rs.getString(3));
 			  vo.setDbday(rs.getString(4));
 			  vo.setHit(rs.getInt(5));
-			  
+			  vo.setNum(rs.getInt(6));
 			  list.add(vo);
 		  }
 		  rs.close();
@@ -114,8 +114,30 @@ public class FreeBoardDAO {
 		  CreateConnection.disConnection(conn, ps);
 	  }
   }
+  public int boardMaxNum()
+  {
+	  int total=0;
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="SELECT MAX(rownum) FROM project_freeboard";
+		  ps=conn.prepareStatement(sql);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  total=rs.getInt(1);
+		  rs.close();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+	  return total;
+  }
   // 상세보기 
-  public FreeBoardVO boardDetailData(int no)
+  public FreeBoardVO boardDetailData(int no,int num)
   {
 	  FreeBoardVO vo=new FreeBoardVO();
 	  try
@@ -129,11 +151,13 @@ public class FreeBoardDAO {
 		  ps.executeUpdate();
 		  /////////////////////////////////// 조회수 증가 
 		  // 실제 게시물번호에 해당되는 데이터 가지고 온다  * => DataBase에 출력 순서로 읽는다 
-		  sql="SELECT no,name,subject,content,TO_CHAR(regdate,'YYYY-MM-DD'),hit "
-			 +"FROM project_freeboard "
-			 +"WHERE no=?";
+		  sql="SELECT no,name,subject,content,TO_CHAR(regdate,'YYYY-MM-DD'),hit,num "
+			 +"FROM (SELECT no,name,subject,content,regdate,hit,rownum as num "
+			 +"FROM (SELECT no,name,subject,content,regdate,hit "
+			 +"FROM project_freeboard ORDER BY no DESC)) "
+			 +"WHERE num=?";
 		  ps=conn.prepareStatement(sql);
-		  ps.setInt(1, no); //IN OUT
+		  ps.setInt(1, num); //IN OUT
 		  ResultSet rs=ps.executeQuery();
 		  rs.next();
 		  vo.setNo(rs.getInt(1));
@@ -142,6 +166,7 @@ public class FreeBoardDAO {
 		  vo.setContent(rs.getString(4));
 		  vo.setDbday(rs.getString(5));
 		  vo.setHit(rs.getInt(6));
+		  vo.setNum(rs.getInt(7));
 		  rs.close();
 	  }catch(Exception ex)
 	  {
@@ -152,6 +177,61 @@ public class FreeBoardDAO {
 		  CreateConnection.disConnection(conn, ps);
 	  }
 	  return vo;
+  }
+  
+  public String boardPreData(int num)
+  {
+	  String subject="";
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="SELECT subject,num "
+			 +"FROM (SELECT subject,rownum as num "
+			 +"FROM (SELECT subject "
+			 +"FROM project_freeboard ORDER BY no DESC)) "
+			 +"WHERE num=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, num-1); //IN OUT
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  subject=rs.getString(1);
+		  rs.close();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+	  return subject;
+  }
+  public String boardNextData(int num)
+  {
+	  String subject="";
+	  try
+	  {
+		  conn=CreateConnection.getConnection();
+		  String sql="SELECT subject,num "
+			 +"FROM (SELECT subject,rownum as num "
+			 +"FROM (SELECT subject "
+			 +"FROM project_freeboard ORDER BY no DESC)) "
+			 +"WHERE num=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setInt(1, num+1); //IN OUT
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  subject=rs.getString(1);
+		  rs.close();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  CreateConnection.disConnection(conn, ps);
+	  }
+	  return subject;
   }
   // ====================================>
   // 수정
