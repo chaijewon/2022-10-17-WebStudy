@@ -7,6 +7,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -126,6 +127,91 @@ public class GoodsModel {
 	   request.setAttribute("vo", vo);
 	   request.setAttribute("main_jsp", "../goods/goods_detail.jsp");
 	   CommonsModel.footerData(request);
+	   return "../main/main.jsp";
+   }
+   // 1. session , 2. db
+   @RequestMapping("goods/cart_insert.do")
+   public String good_cart(HttpServletRequest request,HttpServletResponse response)
+   {
+	   /*
+	    *   <input type="hidden" name=no id="goods_no" value="${vo.no }">
+         <input type="hidden" name=account id="goods_account">
+         <input type="hidden" name=total id="goods_total">
+	    */
+	   HttpSession session=request.getSession();
+	   String id=(String)session.getAttribute("id");
+	   String no=request.getParameter("no");
+	   String account=request.getParameter("account");
+	   String total=request.getParameter("total");
+	   
+	   List<CartVO> list=(List<CartVO>)session.getAttribute("cart");
+	   int cno=1;
+	   if(list==null)
+	   {
+		   list=new ArrayList<CartVO>();
+		   cno=1;
+	   }
+	   else
+	   {
+		   int max=1;
+		   for(CartVO c:list)
+		   {
+			   if(max<c.getBno())
+			   {
+				   max=c.getBno();
+			   }
+		   }
+		   cno=max+1;
+	   }
+	   //GoodsVO vo=new GoodsVO();
+	   //GoodsDAO dao=new GoodsDAO();
+	   /*
+	    *   BNO         NOT NULL NUMBER       
+			GNO                  NUMBER       
+			ID                   VARCHAR2(20) 
+			ACCOUNT              NUMBER       
+			TOTAL_PRICE          NUMBER       
+			BUY_OK               CHAR(1)  
+			REGDATE DATE
+	    */
+	   CartVO vo=new CartVO();
+	   vo.setBno(cno);
+	   vo.setGno(Integer.parseInt(no));
+	   vo.setId(id);
+	   vo.setAccount(Integer.parseInt(account));
+	   vo.setTotal_price(Integer.parseInt(total));
+	   vo.setBuy_ok("n");
+	   vo.setRegdate(new Date());
+	   list.add(vo);
+	   session.setAttribute("cart", list);
+	   return "redirect:cart_list.do";
+   }
+   @RequestMapping("goods/cart_list.do")
+   public String goods_cart_list(HttpServletRequest request,HttpServletResponse response)
+   {
+	   System.out.println("111111111");
+	   HttpSession session=request.getSession();
+	   List<CartVO> list=(List<CartVO>)session.getAttribute("cart");
+	   GoodsDAO dao=new GoodsDAO();
+	   if(list!=null)
+	   {
+		   for(CartVO vo:list)
+		   {
+			   GoodsVO g=dao.goodsDetailData(vo.getGno());
+			   vo.getGvo().setGoods_name(g.getGoods_name());
+			   vo.getGvo().setGoods_poster(g.getGoods_poster());
+			   vo.getGvo().setGoods_price(g.getGoods_price());
+		   }
+		   request.setAttribute("list", list);
+		   request.setAttribute("count", list.size());
+	   }
+	   else
+	   {
+		   request.setAttribute("count", 0);
+	   }
+	   
+	   request.setAttribute("mypage_jsp", "../goods/cart_list.jsp");
+	   request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 	   return "../main/main.jsp";
    }
 }
