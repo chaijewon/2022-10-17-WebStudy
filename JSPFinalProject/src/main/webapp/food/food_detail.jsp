@@ -27,6 +27,15 @@ $(function(){
 			u=0;
 		}
 	})
+	$("#reserveBtn").click(function(){
+		$("#dialog").dialog({
+	    	   autoOpen : false        
+	           , width : 1200            
+	           , height :600        
+	           , modal : true            
+	           , resizeable : false    
+	    }).dialog("open");
+	})
 })
 </script>
 </head>
@@ -117,7 +126,7 @@ $(function(){
               <c:if test="${jjim_count!=0 }">
                 <span class="btn btn-xs btn-default">찜하기</span>
               </c:if>
-              <a href="#" class="btn btn-xs btn-warning">예약하기</a>
+              <span class="btn btn-xs btn-warning" id="reserveBtn">예약하기</span>
              </c:if>
               <a href="javascript:history.back()" class="btn btn-xs btn-primary">목록</a>
             </td>
@@ -259,8 +268,10 @@ $(function(){
         </table>
       </div>  
     </div>
-   
     <!-- / main body -->
+    <div id="dialog" title="맛집예약">
+     <jsp:include page="../reserve/reserve_main_form.jsp"></jsp:include>
+    </div>
     <div class="clear"></div>
   </main>
 </div>
